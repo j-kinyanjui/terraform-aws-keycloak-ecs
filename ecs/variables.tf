@@ -59,3 +59,7 @@ variable "database_name" {}
 variable "database_username" {}
 
 variable "database_password" {}
+
+variable "proxy_address_forwarding" {
+  default = true
+}

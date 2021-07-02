@@ -1,6 +1,6 @@
 variable "instance_type" {
   description = "The ECS instance type"
-  default     = "t2.medium"
+  default     = "t2.micro"
 }
 
 variable "autoscaling_group_name" {

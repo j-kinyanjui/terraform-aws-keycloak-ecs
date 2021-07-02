@@ -16,7 +16,7 @@ resource "aws_alb_listener" "front_end_tls" {
   port              = "443"
   protocol          = "HTTPS"
 
-  ssl_policy      = "ELBSecurityPolicy-2015-05"
+  ssl_policy      = "ELBSecurityPolicy-2016-08"
   certificate_arn = var.certificate_arn
 
   default_action {

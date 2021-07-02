@@ -22,7 +22,8 @@
             { "name" : "DB_PORT", "value" : "${database_port}" },
             { "name" : "DB_DATABASE", "value" : "${database_name}" },
             { "name" : "DB_USER", "value" : "${database_username}" },
-            { "name" : "DB_PASSWORD", "value" : "${database_password}" }
+            { "name" : "DB_PASSWORD", "value" : "${database_password}" },
+            { "name" : "PROXY_ADDRESS_FORWARDING", "value" : "${proxy_address_forwarding}" }
         ],
         "logConfiguration": {
             "logDriver": "awslogs",
