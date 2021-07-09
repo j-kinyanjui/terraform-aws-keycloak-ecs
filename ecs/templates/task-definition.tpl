@@ -28,7 +28,7 @@
         "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
-                "awslogs-group": "${log_group_name}",
+                "awslogs-group": "${app_log_group_name}",
                 "awslogs-region": "${log_group_region}"
             }
         },
@@ -71,7 +71,7 @@
         "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
-                "awslogs-group": "${log_group_name}",
+                "awslogs-group": "${postgres_log_group_name}",
                 "awslogs-region": "${log_group_region}"
             }
         }

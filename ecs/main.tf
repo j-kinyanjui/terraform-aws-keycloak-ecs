@@ -8,7 +8,8 @@ data "template_file" "task_definition" {
   vars = {
     keycloak_container_name  = var.keycloak_container_name
     log_group_region         = var.aws_region
-    log_group_name           = var.app_log_group_name
+    app_log_group_name       = var.app_log_group_name
+    postgres_log_group_name  = var.postgres_log_group_name
     keycloak_container_port  = var.keycloak_container_port
     postgres_container_port  = var.postgres_container_port
     host_port                = var.docker_host_port

@@ -5,3 +5,7 @@ variable "ecs_log_group_name" {
 variable "app_log_group_name" {
   default = "ecs-group/app-keycloak"
 }
+
+variable "postgres_log_group_name" {
+  default = "ecs-group/postgres"
+}

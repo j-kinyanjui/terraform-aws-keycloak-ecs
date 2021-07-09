@@ -16,8 +16,9 @@ module "cloudwatch" {
 module "iam" {
   source = "./iam"
 
-  app_log_group_arn = module.cloudwatch.app_log_group_arn
-  ecs_log_group_arn = module.cloudwatch.ecs_log_group_arn
+  app_log_group_arn      = module.cloudwatch.app_log_group_arn
+  ecs_log_group_arn      = module.cloudwatch.ecs_log_group_arn
+  postgres_log_group_arn = module.cloudwatch.postgres_log_group_arn
 }
 
 module "ec2" {
@@ -49,6 +50,7 @@ module "ecs" {
   keycloak_admin_username     = var.keycloak_admin_username
   keycloak_admin_password     = var.keycloak_admin_password
   app_log_group_name          = module.cloudwatch.app_log_group_name
+  postgres_log_group_name     = module.cloudwatch.postgres_log_group_name
   aws_region                  = var.aws_region
   ecs_iam_role_name           = module.iam.ecs_iam_role_name
   alb_target_group_arn        = module.alb.alb_target_group_arn
