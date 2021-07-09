@@ -43,17 +43,6 @@ module "alb" {
 
 }
 
-module "rds" {
-  source = "./rds"
-
-  vpc_id                  = module.vpc.vpc_id
-  public_subnet_ids       = module.vpc.public_subnet_ids
-  private_subnet_ids      = module.vpc.private_subnet_ids
-  public_subnet_cidr      = module.vpc.public_subnet_cidr
-  private_subnet_cidr     = module.vpc.private_subnet_cidr
-  instance_security_group = module.vpc.instance_sg_id
-}
-
 module "ecs" {
   source = "./ecs"
 
@@ -66,12 +55,6 @@ module "ecs" {
   ecs_cluster_name            = var.ecs_cluster_name
   ecs_service_iam_role_policy = module.iam.ecs_service_iam_role_policy
   alb_listener_front_end      = module.alb.alb_listener_front_end_tls
-
-  database_hostname = module.rds.database_hostname
-  database_port     = module.rds.database_port
-  database_name     = module.rds.database_name
-  database_username = module.rds.database_username
-  database_password = module.rds.database_password
 
 }
 
