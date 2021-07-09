@@ -56,9 +56,18 @@
         "image": "postgres:12.7",
         "environment" : [
             { "name" : "POSTGRES_USER", "value" : "${rds_username}" },
-            { "name" : "POSTGRES_PASSWORD", "value" : "${rds_password}" }
-            { "name" : "POSTGRES_DB", "value" : "${rds_name}" }
+            { "name" : "POSTGRES_PASSWORD", "value" : "${rds_password}" },
+            { "name" : "POSTGRES_DB", "value" : "${database_name}" }
         ],
+        "healthCheck": {
+            "command": [
+                "CMD-SHELL",
+                "pg_isready -U postgres"
+            ],
+            "interval": 5,
+            "timeout": 2,
+            "retries": 3
+        },
         "logConfiguration": {
             "logDriver": "awslogs",
             "options": {

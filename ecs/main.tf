@@ -6,7 +6,7 @@ data "template_file" "task_definition" {
   template = file("${path.module}/templates/task-definition.tpl")
 
   vars = {
-    container_name           = var.keycloak_container_name
+    keycloak_container_name  = var.keycloak_container_name
     log_group_region         = var.aws_region
     log_group_name           = var.app_log_group_name
     keycloak_container_port  = var.keycloak_container_port
@@ -16,7 +16,7 @@ data "template_file" "task_definition" {
     keycloak_admin_password  = var.keycloak_admin_password
     database_hostname        = var.database_hostname
     database_port            = var.postgres_container_port
-    database_name            = var.rds_name
+    database_name            = var.database_name
     rds_username             = var.rds_username
     rds_password             = var.rds_password
     proxy_address_forwarding = var.proxy_address_forwarding

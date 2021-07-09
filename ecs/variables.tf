@@ -38,7 +38,7 @@ variable "rds_password" {
   default     = "<rds-password>"
 }
 
-variable "rds_name" {
+variable "database_name" {
   description = "Name of the database"
   default     = "keycloakdb"
 }
