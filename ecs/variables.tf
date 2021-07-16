@@ -36,6 +36,7 @@ variable "rds_username" {
 variable "rds_password" {
   description = "The password for the RDS account"
   default     = "<rds-password>"
+  description = "The password for the Keycloak RDS user"
 }
 
 variable "database_name" {
@@ -63,6 +64,8 @@ variable "keycloak_admin_password" {
 }
 
 variable "app_log_group_name" {}
+
+variable "postgres_log_group_name" {}
 
 variable "aws_region" {}
 

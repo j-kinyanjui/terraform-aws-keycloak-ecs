@@ -32,6 +32,9 @@
                 "awslogs-region": "${log_group_region}"
             }
         },
+        "links": [
+            "postgres:postgres"
+        ],
         "dependsOn": [
             {
                 "containerName": "postgres",
@@ -62,7 +65,7 @@
         "healthCheck": {
             "command": [
                 "CMD-SHELL",
-                "pg_isready -U postgres"
+                "pg_isready -U rdskeycloakuser"
             ],
             "interval": 5,
             "timeout": 2,
