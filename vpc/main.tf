@@ -50,13 +50,6 @@ resource "aws_security_group" "alb_sg" {
 
   vpc_id = aws_vpc.primary_vpc.id
 
-  # ingress {
-  #   protocol    = "tcp"
-  #   from_port   = 80
-  #   to_port     = 80
-  #   cidr_blocks = ["0.0.0.0/0"]
-  # }
-
   ingress {
     protocol    = "tcp"
     from_port   = 443
@@ -78,16 +71,6 @@ resource "aws_security_group" "alb_sg" {
 resource "aws_security_group" "instance_sg" {
   description = "The security group allowing SSH administrative access to the instances"
   vpc_id      = aws_vpc.primary_vpc.id
-
-  ingress {
-    protocol  = "tcp"
-    from_port = 22
-    to_port   = 22
-
-    cidr_blocks = [
-      var.admin_cidr_ingress,
-    ]
-  }
 
   ingress {
     protocol  = "tcp"

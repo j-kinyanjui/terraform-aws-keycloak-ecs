@@ -5,8 +5,6 @@ provider "aws" {
 module "vpc" {
   source = "./vpc"
 
-  admin_cidr_ingress = var.admin_cidr_ingress
-
 }
 
 module "cloudwatch" {
@@ -44,11 +42,18 @@ module "alb" {
 
 }
 
+module "asm" {
+  source = "./asm"
+
+  keycloak-admin-username = var.keycloak_admin_username
+  rds_username = var.rds_username
+}
+
 module "ecs" {
   source = "./ecs"
 
   keycloak_admin_username     = var.keycloak_admin_username
-  keycloak_admin_password     = var.keycloak_admin_password
+  keycloak_admin_password     = module.asm.keycloak_admin_password
   app_log_group_name          = module.cloudwatch.app_log_group_name
   postgres_log_group_name     = module.cloudwatch.postgres_log_group_name
   aws_region                  = var.aws_region
@@ -57,7 +62,8 @@ module "ecs" {
   ecs_cluster_name            = var.ecs_cluster_name
   ecs_service_iam_role_policy = module.iam.ecs_service_iam_role_policy
   alb_listener_front_end      = module.alb.alb_listener_front_end_tls
-
+  rds_username                = var.rds_username
+  rds_password                = module.asm.rds_username
 }
 
 module "dns" {
@@ -68,4 +74,3 @@ module "dns" {
   alb_dns_name    = module.alb.alb_dns_name
   alb_zone_id     = module.alb.alb_zone
 }
-

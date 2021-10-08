@@ -17,5 +17,3 @@ variable "private_subnet_cidr_block" {
   description = "The CIDR block for the private subnet within the VPC"
   default     = "10.0.10.0/24"
 }
-
-variable "admin_cidr_ingress" {}

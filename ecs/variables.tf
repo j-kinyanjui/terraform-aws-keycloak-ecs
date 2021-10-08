@@ -30,12 +30,9 @@ variable "docker_host_port" {
 
 variable "rds_username" {
   description = "The username for the RDS account"
-  default     = "<rds-username>"
 }
 
 variable "rds_password" {
-  description = "The password for the RDS account"
-  default     = "<rds-password>"
   description = "The password for the Keycloak RDS user"
 }
 

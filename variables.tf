@@ -17,10 +17,10 @@ variable "ecs_log_level" {
   default     = "info"
 }
 
-variable "admin_cidr_ingress" {
+/*variable "admin_cidr_ingress" {
   description = "Admin IP for admin access"
   default     = "<ip range>"
-}
+}*/
 
 variable "keycloak_admin_username" {
   description = "Keycloak username"
