@@ -77,3 +77,5 @@ variable "alb_listener_front_end" {}
 variable "proxy_address_forwarding" {
   default = true
 }
+
+variable "ecs_password_policy_role_arn" {}

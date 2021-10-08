@@ -14,15 +14,17 @@
         "essential": true,
         "name": "${keycloak_container_name}",
         "image": "jboss/keycloak:13.0.1",
+        "secrets": [
+            {"name": "KEYCLOAK_PASSWORD", "valueFrom": "${keycloak_admin_password}"},
+            {"name": "DB_PASSWORD", "valueFrom": "${rds_password}"}
+        ],
         "environment" : [
             { "name" : "KEYCLOAK_USER", "value" : "${keycloak_admin_username}" },
-            { "name" : "KEYCLOAK_PASSWORD", "value" : "${keycloak_admin_password}" },
             { "name" : "DB_VENDOR", "value" : "postgres" },
             { "name" : "DB_ADDR", "value" : "${database_hostname}" },
             { "name" : "DB_PORT", "value" : "${database_port}" },
             { "name" : "DB_DATABASE", "value" : "${database_name}" },
             { "name" : "DB_USER", "value" : "${rds_username}" },
-            { "name" : "DB_PASSWORD", "value" : "${rds_password}" },
             { "name" : "PROXY_ADDRESS_FORWARDING", "value" : "${proxy_address_forwarding}" }
         ],
         "logConfiguration": {
@@ -57,9 +59,11 @@
         "essential": true,
         "name": "postgres",
         "image": "postgres:12.7",
+        "secrets": [
+            { "name": "POSTGRES_PASSWORD", "valueFrom": "${rds_password}"}
+        ],
         "environment" : [
             { "name" : "POSTGRES_USER", "value" : "${rds_username}" },
-            { "name" : "POSTGRES_PASSWORD", "value" : "${rds_password}" },
             { "name" : "POSTGRES_DB", "value" : "${database_name}" }
         ],
         "healthCheck": {

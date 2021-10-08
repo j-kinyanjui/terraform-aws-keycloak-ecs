@@ -2,12 +2,14 @@
 data "aws_iam_policy_document" "ec2_instance_assume_role_policy" {
   statement {
     actions = [
-      "sts:AssumeRole"]
+      "sts:AssumeRole"
+    ]
 
     principals {
       type = "Service"
       identifiers = [
-        "ec2.amazonaws.com"]
+        "ec2.amazonaws.com"
+      ]
     }
   }
 }
@@ -31,12 +33,14 @@ resource "aws_iam_role_policy_attachment" "ecs_instance_role" {
 data "aws_iam_policy_document" "ecs_service_role_policy" {
   statement {
     actions = [
-      "sts:AssumeRole"]
+      "sts:AssumeRole"
+    ]
 
     principals {
       type = "Service"
       identifiers = [
-        "ecs.amazonaws.com"]
+        "ecs.amazonaws.com"
+      ]
     }
   }
 }
@@ -54,7 +58,8 @@ resource "aws_iam_role_policy_attachment" "service_role" {
 data "aws_iam_policy_document" "ecs_task_role_policy" {
   statement {
     actions = [
-      "sts:AssumeRole"]
+      "sts:AssumeRole"
+    ]
 
     principals {
       type = "Service"
@@ -77,13 +82,20 @@ resource "aws_iam_role_policy_attachment" "ecs_task_role_policy_attachment" {
 data "aws_iam_policy_document" "allow_create_log_groups" {
   statement {
     actions = [
-      "logs:CreateLogGroup"]
+      "logs:CreateLogGroup"
+    ]
     resources = [
-      "*"]
+      "*"
+    ]
   }
 }
 
 resource "aws_iam_role_policy" "allow_create_log_groups" {
   policy = data.aws_iam_policy_document.allow_create_log_groups.json
   role = aws_iam_role.ecs_task_role.id
+}
+
+resource "aws_iam_role_policy_attachment" "password_policy_secrets_manager_attachment" {
+  role = aws_iam_role.ecs_task_role.name
+  policy_arn = "arn:aws:iam::aws:policy/SecretsManagerReadWrite"
 }

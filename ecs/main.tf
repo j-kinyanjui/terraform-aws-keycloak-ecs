@@ -27,6 +27,7 @@ data "template_file" "task_definition" {
 resource "aws_ecs_task_definition" "main" {
   family                = var.ecs_task_family
   container_definitions = data.template_file.task_definition.rendered
+  execution_role_arn    = var.ecs_password_policy_role_arn
 }
 
 resource "aws_ecs_service" "main" {

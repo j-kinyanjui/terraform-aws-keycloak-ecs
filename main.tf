@@ -45,25 +45,26 @@ module "alb" {
 module "asm" {
   source = "./asm"
 
+  rds_username            = var.rds_username
   keycloak-admin-username = var.keycloak_admin_username
-  rds_username = var.rds_username
 }
 
 module "ecs" {
   source = "./ecs"
 
-  keycloak_admin_username     = var.keycloak_admin_username
-  keycloak_admin_password     = module.asm.keycloak_admin_password
-  app_log_group_name          = module.cloudwatch.app_log_group_name
-  postgres_log_group_name     = module.cloudwatch.postgres_log_group_name
-  aws_region                  = var.aws_region
-  ecs_iam_role_name           = module.iam.ecs_iam_role_name
-  alb_target_group_arn        = module.alb.alb_target_group_arn
-  ecs_cluster_name            = var.ecs_cluster_name
-  ecs_service_iam_role_policy = module.iam.ecs_service_iam_role_policy
-  alb_listener_front_end      = module.alb.alb_listener_front_end_tls
-  rds_username                = var.rds_username
-  rds_password                = module.asm.rds_username
+  keycloak_admin_username      = var.keycloak_admin_username
+  keycloak_admin_password      = module.asm.keycloak_admin_password
+  app_log_group_name           = module.cloudwatch.app_log_group_name
+  postgres_log_group_name      = module.cloudwatch.postgres_log_group_name
+  aws_region                   = var.aws_region
+  ecs_iam_role_name            = module.iam.ecs_iam_role_name
+  alb_target_group_arn         = module.alb.alb_target_group_arn
+  ecs_cluster_name             = var.ecs_cluster_name
+  ecs_service_iam_role_policy  = module.iam.ecs_service_iam_role_policy
+  alb_listener_front_end       = module.alb.alb_listener_front_end_tls
+  rds_username                 = var.rds_username
+  rds_password                 = module.asm.rds_username
+  ecs_password_policy_role_arn = module.iam.ecs_password_policy_role_arn
 }
 
 module "dns" {
