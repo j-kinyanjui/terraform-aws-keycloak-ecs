@@ -1,11 +1,12 @@
-## keycloak-aws-rds
+## keycloak-aws-ecs
 
-A sample Terraform setup for creating a Keycloak ECS instance behind an ALB
+A sample Terraform setup for creating a Keycloak ECS instance behind an ALB. This project uses ECS and not RDS and is inspired by this [keycloak-aws-rds](https://github.com/devopsutils/keycloak-aws-rds) project.
 
 # What
 
 This project demonstrates how to launch an instance of [KeyCloak](https://keycloak.org) with a Postgres DB within your AWS [VPC](https://aws.amazon.com/vpc/) using [Terraform](https://terraform.io).  
-These modules will deploy both KeyCloak and postgres in Docker containers deployed on EC2. Keycloak is accessible behind an [ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html).  
+These modules will deploy both KeyCloak and postgres in Docker containers deployed on [ECS](https://aws.amazon.com/ecs/). 
+Keycloak is accessible behind an [ALB](https://docs.aws.amazon.com/elasticloadbalancing/latest/application/introduction.html).  
 A DNS record for the instance will also be created using [Route 53](https://aws.amazon.com/route53/) and a corresponding certificate for the ALB will be created and applied using [ACM](https://aws.amazon.com/certificate-manager/).
 
 # Getting Started
@@ -32,7 +33,10 @@ terraform apply -var-file=private.tfvars
 
 # Testing it out
 
-Once your Terraform build completes, you will see outputs showing the ALB's DNS name, as well as the DNS name created using Route 53.  Wait a couple seconds for the ALB to register the backend target, and then open up a browser to either of those values.  You should see the KeyCloak login page appear.  Login with the administrator username and password you provided as part of your Terraform variables.
+Once your Terraform build completes, you will see outputs showing the ALB's DNS name, as well as the DNS name created using Route 53. 
+Wait a couple seconds for the ALB to register the backend target, and then open up a browser to either of those values. 
+You should see the KeyCloak login page appear. 
+Login with the administrator username and password you provided as part of your Terraform variables.
 
 # Caveats
 
@@ -40,15 +44,13 @@ A few caveats, particularly related to security...
 
 #### Route 53 and DNS
 
-This deployment assumes that you have an existing Route 53 zone setup for your domain.  The DNS record for KeyCloak will created in this zone during ```apply```, but the zone itself must exist beforehand.
+This deployment assumes that you have an existing Route 53 zone setup for your domain. 
+The DNS record for KeyCloak will be created in this zone during ```apply```, but the zone itself must exist beforehand.
 
 #### Clustering
 
 This deployment -- while behind an ALB -- only results in a single KeyCloak instance.  If you'd like to see how to deploy a full auto-scaling KeyCloak cluster with the same RDS and ALB support, take a look at [this repo](https://github.com/sdnakhla/keycloak-cluster-aws-rds).
 
-#### RDS Credentials
-
-Due to shortcomings in the way that the KeyCloak Docker image and underlying application server work, RDS credentials are provided as part of the ECS task definition and made available to KeyClok as environment variables.  This is less than ideal, but I'm not knowledgeable enough on Terraform to come up with a better way.  If you have one, feel free to raise an issue or submit a pull request!
 # Questions/Issues
 
-Find a bug?  Have an idea on how to better implement a section of the code?  Have a general question?  Feel free to raise an issue or submit a pull request!  I can't guarantee that I have all the answers, as this project is really just an exercise to help me learn Terraform better.  But I'll certainly give it my best shot.
+Find a bug? Have an idea on how to better implement a section of the code? Have a general question? Feel free to raise an issue or submit a pull request! I can't guarantee that I have all the answers, as this project is really just an exercise to help me learn Terraform better. But I'll certainly give it my best shot.
