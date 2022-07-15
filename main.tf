@@ -63,7 +63,7 @@ module "ecs" {
   ecs_service_iam_role_policy  = module.iam.ecs_service_iam_role_policy
   alb_listener_front_end       = module.alb.alb_listener_front_end_tls
   rds_username                 = var.rds_username
-  rds_password                 = module.asm.rds_username
+  rds_password                 = module.asm.postgres_db_password
   ecs_password_policy_role_arn = module.iam.ecs_password_policy_role_arn
 }
 

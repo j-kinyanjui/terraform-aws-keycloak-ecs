@@ -41,8 +41,8 @@ variable "database_name" {
   default     = "keycloakdb"
 }
 
-variable "database_hostname" {
-  default = "postgres"
+variable "database_url" {
+  default = "jdbc:postgresql://postgres/keycloakdb"
 }
 
 variable "ecs_cluster_name" {}
@@ -74,8 +74,8 @@ variable "ecs_service_iam_role_policy" {}
 
 variable "alb_listener_front_end" {}
 
-variable "proxy_address_forwarding" {
-  default = true
+variable "proxy_config" {
+  default = "edge"
 }
 
 variable "ecs_password_policy_role_arn" {}

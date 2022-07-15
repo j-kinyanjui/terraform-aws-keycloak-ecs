@@ -13,19 +13,18 @@
         ],
         "essential": true,
         "name": "${keycloak_container_name}",
-        "image": "jboss/keycloak:13.0.1",
+        "image": "quay.io/keycloak/keycloak:18.0.2",
         "secrets": [
-            {"name": "KEYCLOAK_PASSWORD", "valueFrom": "${keycloak_admin_password}"},
-            {"name": "DB_PASSWORD", "valueFrom": "${rds_password}"}
+            {"name": "KEYCLOAK_ADMIN_PASSWORD", "valueFrom": "${keycloak_admin_password}"},
+            {"name": "KC_DB_PASSWORD", "valueFrom": "${rds_password}"}
         ],
         "environment" : [
-            { "name" : "KEYCLOAK_USER", "value" : "${keycloak_admin_username}" },
-            { "name" : "DB_VENDOR", "value" : "postgres" },
-            { "name" : "DB_ADDR", "value" : "${database_hostname}" },
-            { "name" : "DB_PORT", "value" : "${database_port}" },
-            { "name" : "DB_DATABASE", "value" : "${database_name}" },
-            { "name" : "DB_USER", "value" : "${rds_username}" },
-            { "name" : "PROXY_ADDRESS_FORWARDING", "value" : "${proxy_address_forwarding}" }
+            { "name" : "KEYCLOAK_ADMIN", "value" : "${keycloak_admin_username}" },
+            { "name" : "KC_DB", "value" : "postgres" },
+            { "name" : "KC_DB_URL", "value" : "${database_url}" },
+            { "name" : "KC_DB_DATABASE", "value" : "${database_name}" },
+            { "name" : "KC_DB_USERNAME", "value" : "${rds_username}" },
+            { "name" : "KC_PROXY", "value" : "${proxy_config}" }
         ],
         "logConfiguration": {
             "logDriver": "awslogs",
@@ -58,7 +57,7 @@
         ],
         "essential": true,
         "name": "postgres",
-        "image": "postgres:12.7",
+        "image": "postgres:14.4",
         "secrets": [
             { "name": "POSTGRES_PASSWORD", "valueFrom": "${rds_password}"}
         ],
@@ -69,11 +68,11 @@
         "healthCheck": {
             "command": [
                 "CMD-SHELL",
-                "pg_isready -U rdskeycloakuser"
+                "pg_isready -U postgres-user -d keycloakdb"
             ],
-            "interval": 5,
-            "timeout": 2,
-            "retries": 3
+            "interval": 10,
+            "timeout": 5,
+            "retries": 5
         },
         "logConfiguration": {
             "logDriver": "awslogs",
