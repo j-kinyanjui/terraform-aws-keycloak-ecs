@@ -24,8 +24,10 @@
             { "name" : "KC_DB_URL", "value" : "${database_url}" },
             { "name" : "KC_DB_DATABASE", "value" : "${database_name}" },
             { "name" : "KC_DB_USERNAME", "value" : "${rds_username}" },
-            { "name" : "KC_PROXY", "value" : "${proxy_config}" }
+            { "name" : "KC_PROXY", "value" : "${proxy_config}" },
+            { "name" : "KC_HEALTH_ENABLED", "value" : "true"}
         ],
+        "command": ["start-dev"],
         "logConfiguration": {
             "logDriver": "awslogs",
             "options": {
@@ -41,7 +43,15 @@
                 "containerName": "postgres",
                 "condition": "HEALTHY"
             }
-        ]
+        ],
+        "healthCheck": {
+            "command": [
+                "CMD", "curl", "-f", "http://localhost:8080/health"
+            ],
+            "interval": 30,
+            "timeout": 10,
+            "retries": 5
+        }
     },
     {
         "memory":1024,
@@ -67,8 +77,7 @@
         ],
         "healthCheck": {
             "command": [
-                "CMD-SHELL",
-                "pg_isready -U postgres-user -d keycloakdb"
+                "CMD-SHELL", "pg_isready -U ${rds_username} -d ${database_name}"
             ],
             "interval": 10,
             "timeout": 5,
