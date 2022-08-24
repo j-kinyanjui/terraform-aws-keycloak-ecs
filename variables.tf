@@ -27,9 +27,9 @@ variable "keycloak_admin_username" {
   default     = "<user-name>"
 }
 
-variable "keycloak_admin_password" {
-  description = "Keycloak login"
-  default     = "<user-pass>"
+variable "rds_username" {
+  description = "Postgres username"
+  default     = "<user-name>"
 }
 
 variable "public_dns_name" {
