@@ -38,7 +38,7 @@ data "template_file" "cloud_config" {
 resource "aws_launch_configuration" "app" {
   security_groups = [var.instance_sg_id]
 
-  key_name                    = var.key_name
+  //key_name                    = var.key_name
   image_id                    = data.aws_ami.aws-ecs-optimized.id
   instance_type               = var.instance_type
   iam_instance_profile        = var.app_iam_instance_profile_name

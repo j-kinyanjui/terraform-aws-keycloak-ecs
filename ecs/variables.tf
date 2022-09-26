@@ -10,7 +10,7 @@ variable "keycloak_container_name" {
 
 variable "docker_image_url" {
   description = "The URL of the Docker image"
-  default     = "jboss/keycloak:13.0.1"
+  default     = "quay.io/keycloak/keycloak:19.0.2"
 }
 
 variable "keycloak_container_port" {

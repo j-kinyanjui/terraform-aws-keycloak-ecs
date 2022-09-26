@@ -13,7 +13,7 @@
         ],
         "essential": true,
         "name": "${keycloak_container_name}",
-        "image": "quay.io/keycloak/keycloak:18.0.2",
+        "image": "${docker_image_url}",
         "secrets": [
             {"name": "KEYCLOAK_ADMIN_PASSWORD", "valueFrom": "${keycloak_admin_password}"},
             {"name": "KC_DB_PASSWORD", "valueFrom": "${rds_password}"}

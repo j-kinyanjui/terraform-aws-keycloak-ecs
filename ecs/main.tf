@@ -7,6 +7,7 @@ data "template_file" "task_definition" {
 
   vars = {
     keycloak_container_name = var.keycloak_container_name
+    docker_image_url        = var.docker_image_url
     log_group_region        = var.aws_region
     app_log_group_name      = var.app_log_group_name
     postgres_log_group_name = var.postgres_log_group_name

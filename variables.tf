@@ -3,11 +3,6 @@ variable "aws_region" {
   default     = "eu-central-1"
 }
 
-variable "key_name" {
-  description = "Key name"
-  default     = "<key-name>"
-}
-
 variable "ecs_cluster_name" {
   default = "ecs_cluster"
 }
@@ -16,11 +11,6 @@ variable "ecs_log_level" {
   description = "The ECS log level"
   default     = "info"
 }
-
-/*variable "admin_cidr_ingress" {
-  description = "Admin IP for admin access"
-  default     = "<ip range>"
-}*/
 
 variable "keycloak_admin_username" {
   description = "Keycloak username"

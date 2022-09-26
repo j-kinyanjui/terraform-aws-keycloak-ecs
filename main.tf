@@ -23,7 +23,7 @@ module "ec2" {
   source = "./ec2"
 
   aws_region                    = var.aws_region
-  key_name                      = var.key_name
+  key_name                      = ""
   ecs_log_level                 = var.ecs_log_level
   ecs_cluster_name              = var.ecs_cluster_name
   vpc_zone_identifier           = module.vpc.vpc_zone_identifier
