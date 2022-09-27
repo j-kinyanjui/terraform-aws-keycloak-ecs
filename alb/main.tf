@@ -3,6 +3,13 @@ resource "aws_alb_target_group" "main" {
   port     = var.alb_target_port
   protocol = "HTTP"
   vpc_id   = var.vpc_id
+
+  health_check {
+    matcher = "200,301,302"
+    path    = "/auth/health"
+    interval = 120
+    timeout = 30
+  }
 }
 
 resource "aws_alb" "main" {
@@ -22,5 +29,21 @@ resource "aws_alb_listener" "front_end_tls" {
   default_action {
     target_group_arn = aws_alb_target_group.main.id
     type             = "forward"
+  }
+}
+
+resource "aws_lb_listener_rule" "front_end_path" {
+  listener_arn = aws_alb_listener.front_end_tls.arn
+  priority     = 100
+
+  action {
+    type             = "forward"
+    target_group_arn = aws_alb_target_group.main.id
+  }
+
+  condition {
+    path_pattern {
+      values = ["/auth"]
+    }
   }
 }

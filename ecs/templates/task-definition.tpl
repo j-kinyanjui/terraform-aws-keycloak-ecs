@@ -25,6 +25,8 @@
             { "name" : "KC_DB_DATABASE", "value" : "${database_name}" },
             { "name" : "KC_DB_USERNAME", "value" : "${rds_username}" },
             { "name" : "KC_PROXY", "value" : "${proxy_config}" },
+            { "name" : "KC_HTTP_RELATIVE_PATH", "value" : "/auth" },
+            { "name" : "KC_HOSTNAME_STRICT", "value" : "false"},
             { "name" : "KC_HEALTH_ENABLED", "value" : "true"}
         ],
         "command": ["start-dev"],
@@ -46,7 +48,7 @@
         ],
         "healthCheck": {
             "command": [
-                "CMD", "curl", "-f", "http://localhost:8080/health"
+                "CMD", "curl", "-f", "http://localhost:8080/auth/health"
             ],
             "interval": 30,
             "timeout": 10,
