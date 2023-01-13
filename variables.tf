@@ -4,7 +4,7 @@ variable "aws_region" {
 }
 
 variable "ecs_cluster_name" {
-  default = "ecs_cluster"
+  default = "ecs_keycloak_cluster"
 }
 
 variable "ecs_log_level" {

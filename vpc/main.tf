@@ -3,6 +3,10 @@ data "aws_availability_zones" "available" {}
 resource "aws_vpc" "primary_vpc" {
   cidr_block           = var.vpc_cidr_block
   enable_dns_hostnames = true
+
+  tags = {
+    Name= "Terraform VPC"
+  }
 }
 
 resource "aws_subnet" "public" {
@@ -12,7 +16,7 @@ resource "aws_subnet" "public" {
   vpc_id            = aws_vpc.primary_vpc.id
 
   tags = {
-    Name = "Public Subnet"
+    Name = "Terraform Public Subnet"
   }
 }
 
@@ -22,7 +26,7 @@ resource "aws_subnet" "private" {
   vpc_id            = aws_vpc.primary_vpc.id
 
   tags = {
-    Name = "Private Subnet"
+    Name = "Terraform Private Subnet"
   }
 }
 
@@ -36,6 +40,10 @@ resource "aws_route_table" "main" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.main.id
+  }
+
+  tags = {
+    Name = "Terraform Route Table"
   }
 }
 
@@ -65,6 +73,10 @@ resource "aws_security_group" "alb_sg" {
     cidr_blocks = [
       "0.0.0.0/0",
     ]
+  }
+
+  tags = {
+    Name =  "Terraform SG"
   }
 }
 

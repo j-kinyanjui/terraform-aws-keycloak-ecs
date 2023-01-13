@@ -16,6 +16,10 @@ resource "aws_alb" "main" {
   name            = var.alb_name
   subnets         = var.subnet_ids
   security_groups = var.security_groups
+
+  tags = {
+    Name = "Terraform ALB"
+  }
 }
 
 resource "aws_alb_listener" "front_end_tls" {
