@@ -41,7 +41,6 @@ resource "aws_ecs_service" "main" {
   }
 
   depends_on = [
-    var.alb_listener_front_end,
     var.ecs_service_iam_role_policy
   ]
 }
