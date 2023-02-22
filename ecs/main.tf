@@ -2,32 +2,29 @@ resource "aws_ecs_cluster" "main" {
   name = var.ecs_cluster_name
 }
 
-data "template_file" "task_definition" {
-  template = file("${path.module}/templates/task-definition.tpl")
-
-  vars = {
-    keycloak_container_name = var.keycloak_container_name
-    docker_image_url        = var.docker_image_url
-    log_group_region        = var.aws_region
-    app_log_group_name      = var.app_log_group_name
-    postgres_log_group_name = var.postgres_log_group_name
-    keycloak_container_port = var.keycloak_container_port
-    postgres_container_port = var.postgres_container_port
-    host_port               = var.docker_host_port
-    keycloak_admin_username = var.keycloak_admin_username
-    keycloak_admin_password = var.keycloak_admin_password
-    database_url            = var.database_url
-    database_name           = var.database_name
-    rds_username            = var.rds_username
-    rds_password            = var.rds_password
-    proxy_config            = var.proxy_config
-  }
-}
-
 resource "aws_ecs_task_definition" "main" {
   family                = var.ecs_task_family
-  container_definitions = data.template_file.task_definition.rendered
   execution_role_arn    = var.ecs_password_policy_role_arn
+  container_definitions = templatefile(
+    "${path.module}/templates/task-definition.tpl",
+    {
+      keycloak_container_name = var.keycloak_container_name
+      docker_image_url        = var.docker_image_url
+      log_group_region        = var.aws_region
+      app_log_group_name      = var.app_log_group_name
+      postgres_log_group_name = var.postgres_log_group_name
+      keycloak_container_port = var.keycloak_container_port
+      postgres_container_port = var.postgres_container_port
+      host_port               = var.docker_host_port
+      keycloak_admin_username = var.keycloak_admin_username
+      keycloak_admin_password = var.keycloak_admin_password
+      database_url            = var.database_url
+      database_name           = var.database_name
+      rds_username            = var.rds_username
+      rds_password            = var.rds_password
+      proxy_config            = var.proxy_config
+    }
+  )
 }
 
 resource "aws_ecs_service" "main" {
