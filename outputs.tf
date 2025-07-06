@@ -3,5 +3,5 @@ output "alb_public_dns" {
 }
 
 output "public_dns_name" {
-  value = var.public_dns_name
+  value = format("%s/%s", var.public_dns_name, "auth")
 }

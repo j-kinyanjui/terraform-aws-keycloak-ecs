@@ -69,7 +69,7 @@
         ],
         "essential": true,
         "name": "postgres",
-        "image": "postgres:14.4",
+        "image": "postgres:17",
         "secrets": [
             { "name": "POSTGRES_PASSWORD", "valueFrom": "${rds_password}"}
         ],

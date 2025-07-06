@@ -10,7 +10,7 @@ variable "keycloak_container_name" {
 
 variable "docker_image_url" {
   description = "The URL of the Docker image"
-  default     = "quay.io/keycloak/keycloak:20.0.5"
+  default     = "quay.io/keycloak/keycloak:26.3.0"
 }
 
 variable "keycloak_container_port" {
@@ -71,8 +71,6 @@ variable "ecs_iam_role_name" {}
 variable "alb_target_group_arn" {}
 
 variable "ecs_service_iam_role_policy" {}
-
-variable "alb_listener_front_end" {}
 
 variable "proxy_config" {
   default = "edge"

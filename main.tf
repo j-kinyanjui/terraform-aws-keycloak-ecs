@@ -32,14 +32,22 @@ module "ec2" {
   ecs_log_group_name            = module.cloudwatch.ecs_log_group_name
 }
 
+module "cert" {
+  source = "cert"
+
+  zone_name       = var.zone_name
+  public_dns_name = var.public_dns_name
+}
+
 module "alb" {
   source = "./alb"
 
   vpc_id          = module.vpc.vpc_id
   subnet_ids      = module.vpc.public_subnet_ids
   security_groups = module.vpc.security_groups
-  certificate_arn = module.dns.acm_certificate_arn
+  certificate_arn = module.cert.acm_certificate_arn
 
+  depends_on = [module.vpc, module.cert]
 }
 
 module "asm" {
@@ -65,13 +73,15 @@ module "ecs" {
   rds_username                 = var.rds_username
   rds_password                 = module.asm.postgres_db_password
   ecs_password_policy_role_arn = module.iam.ecs_password_policy_role_arn
+
+  depends_on = [module.iam, module.alb, module.cloudwatch]
 }
 
 module "dns" {
   source = "./dns"
 
-  zone_name       = var.zone_name
   public_dns_name = var.public_dns_name
   alb_dns_name    = module.alb.alb_dns_name
-  alb_zone_id     = module.alb.alb_zone
+  alb_zone_id     = module.alb.alb_zone_id
+  zone_id         = module.cert.zone_id
 }

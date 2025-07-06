@@ -3,7 +3,7 @@ output "app_iam_instance_profile_name" {
 }
 
 output "ecs_iam_role_name" {
-  value = aws_iam_role.ecs_service_role.name
+  value = aws_iam_role.ecs_service_role.arn
 }
 
 output "ecs_service_iam_role_policy" {
